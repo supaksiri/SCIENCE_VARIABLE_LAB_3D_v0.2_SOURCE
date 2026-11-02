@@ -1,5 +1,3 @@
-import React from 'react';
-
 /** Persistent attribution shared by all application routes. */
 export function LabFooterCredit() {
   return (
