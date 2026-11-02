@@ -3,12 +3,12 @@ import {OrbitControls, Text} from '@react-three/drei';
 import {Suspense, useEffect, useRef, useState} from 'react';
 import type {Lab,Value} from '../data/labs';
 
-const WHITE='#f8fbff';
+const WHITE='#edf2f6';
 function Glassware({x=0,level=.5,color='#b9e3ef',width=.42}:{x?:number;level?:number;color?:string;width?:number}){
  const liquidHeight=Math.max(.035,level)*1.18;
  return <group position={[x,.16,0]}>
-  <mesh position={[0,.59,0]}><cylinderGeometry args={[width,width*.92,1.2,48,1,true]}/><meshPhysicalMaterial color="#c6e5f0" transparent opacity={.25} roughness={.05} side={2} depthWrite={false}/></mesh>
-  <mesh position={[0,.015,0]}><cylinderGeometry args={[width*.92,width*.92,.03,48]}/><meshStandardMaterial color="#d6e6ed" transparent opacity={.4}/></mesh>
+  <mesh position={[0,.59,0]}><cylinderGeometry args={[width,width*.92,1.2,48,1,true]}/><meshPhysicalMaterial color="#9bb7c5" transparent opacity={.32} roughness={.05} side={2} depthWrite={false}/></mesh>
+  <mesh position={[0,.015,0]}><cylinderGeometry args={[width*.92,width*.92,.03,48]}/><meshStandardMaterial color="#b1c4cf" transparent opacity={.5}/></mesh>
   <mesh position={[0,liquidHeight/2+.025,0]}><cylinderGeometry args={[width*.89,width*.89,liquidHeight,48]}/><meshPhysicalMaterial color={color} transparent opacity={.66} roughness={.12} depthWrite={false}/></mesh>
   <mesh position={[0,liquidHeight+.027,0]}><cylinderGeometry args={[width*.89,width*.89,.015,48]}/><meshPhysicalMaterial color={color} transparent opacity={.76}/></mesh>
   {[.2,.45,.7,.95].map((v,i)=><group key={i} position={[width+.035,v,0]}><mesh><boxGeometry args={[.105,.008,.012]}/><meshStandardMaterial color="#7d94a0"/></mesh></group>)}
@@ -51,12 +51,12 @@ function useFrameProgress(running:boolean,runId:number):[number,(n:number)=>void
  return [progress,setProgress];
 }
 function Room({lab,choice,result,running,runId}:{lab:Lab;choice:Value;result:number;running:boolean;runId:number}){
- return <><color attach="background" args={[WHITE]}/><ambientLight intensity={1.7}/><hemisphereLight intensity={.75} color="#ffffff" groundColor="#b5c5cf"/><directionalLight castShadow position={[4,9,5]} intensity={2.1} shadow-mapSize={[1024,1024]}/>
- <mesh receiveShadow position={[0,-.45,0]}><boxGeometry args={[18,.3,11]}/><meshStandardMaterial color="#e7eef3" roughness={.8}/></mesh>
- <mesh position={[0,3,-3.5]}><boxGeometry args={[18,8,.16]}/><meshStandardMaterial color="#fafcfe"/></mesh>
+ return <><color attach="background" args={[WHITE]}/><ambientLight intensity={0.55}/><hemisphereLight intensity={0.5} color="#ffffff" groundColor="#9caeba"/><directionalLight castShadow position={[5,8,6]} intensity={1.15} shadow-mapSize={[1024,1024]} shadow-bias={-0.0002}/>
+ <mesh receiveShadow position={[0,-.45,0]}><boxGeometry args={[18,.3,11]}/><meshStandardMaterial color="#dce3e9" roughness={.84}/></mesh>
+ <mesh position={[0,3,-3.5]}><boxGeometry args={[18,8,.16]}/><meshStandardMaterial color="#f2f5f7"/></mesh>
  {[-5.2,-2.6,0,2.6,5.2].map(x=><group key={x}><mesh position={[x,3.3,-3.34]}><boxGeometry args={[2.05,2.75,.04]}/><meshStandardMaterial color="#d5eef7" emissive="#c8e8f5" emissiveIntensity={.15}/></mesh><mesh position={[x,3.3,-3.3]}><boxGeometry args={[.055,2.75,.07]}/><meshStandardMaterial color="#bcced9"/></mesh></group>)}
- <mesh castShadow receiveShadow position={[0,-.12,0]}><boxGeometry args={[9.6,.35,3.2]}/><meshStandardMaterial color="#ffffff" roughness={.28}/></mesh>
- <mesh position={[0,-1,0]}><boxGeometry args={[9,1.48,2.7]}/><meshStandardMaterial color="#e1eaf0" roughness={.65}/></mesh>
+ <mesh castShadow receiveShadow position={[0,-.12,0]}><boxGeometry args={[9.6,.35,3.2]}/><meshStandardMaterial color="#e9eef2" roughness={.48}/></mesh>
+ <mesh position={[0,-1,0]}><boxGeometry args={[9,1.48,2.7]}/><meshStandardMaterial color="#e3eaf0" roughness={.65}/></mesh>
  <mesh position={[-4.05,.58,-.7]}><boxGeometry args={[.15,1.55,.15]}/><meshStandardMaterial color="#b8cbd5" metalness={.6}/></mesh>
  <Text position={[0,3.62,-3.15]} fontSize={.4} color="#2c5166" anchorX="center">SCIENCE VARIABLE LAB 3D</Text>
  <ActiveExperiment lab={lab} choice={choice} result={result} running={running} runId={runId}/>
